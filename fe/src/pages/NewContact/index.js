@@ -1,30 +1,13 @@
-import { useRef } from 'react';
 import PageHeader from '../../components/PageHeader';
 
 import ContactForm from '../../components/ContactForm';
-import ContactsServices from '../../services/ContactsServices';
-import toast from '../../utils/toast';
+import useNewContact from './useNewContact';
 
 export default function NewContact() {
-  const contactFormRef = useRef(null);
-
-  async function handleSubmit(contact) {
-    try {
-      await ContactsServices.createContacts(contact);
-
-      contactFormRef.current.resetFilds();
-
-      toast({
-        type: 'success',
-        text: 'Contato cadastrado com sucesso!',
-      });
-    } catch {
-      toast({
-        type: 'danger',
-        text: 'Ocorreu um error ao cadastrar o contato!',
-      });
-    }
-  }
+  const {
+    handleSubmit,
+    contactFormRef,
+  } = useNewContact();
 
   return (
     <>
