@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export default function useErrors() {
   const [errors, setErrors] = useState([]);
 
-  function setError({ field, message }) {
+  const setError = useCallback(({ field, message }) => {
     const errorAlredyExists = errors.find((error) => error.field === field);
 
     if (errorAlredyExists) {
@@ -14,16 +14,17 @@ export default function useErrors() {
       ...prevState,
       { field, message },
     ]);
-  }
+  }, [errors]);
 
-  function removeError(fieldName) {
+  const removeError = useCallback((fieldName) => {
     setErrors((prevState) => prevState.filter(
       (error) => error.field !== fieldName,
     ));
-  }
+  }, []);
 
-  // eslint-disable-next-line max-len
-  const getErrorMessageByFieldName = (fieldName) => errors.find((error) => error.field === fieldName)?.message;
+  const getErrorMessageByFieldName = useCallback((fieldName) => (
+    errors.find((error) => error.field === fieldName)?.message
+  ), [errors]);
 
   return {
     errors, setError, removeError, getErrorMessageByFieldName,
