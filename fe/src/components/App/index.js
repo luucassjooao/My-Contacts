@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 
 import { BrowserRouter } from 'react-router-dom';
-import Routes from '../../Routes';
+import Router from '../../Router';
 
 import GlobalStyles from '../../assets/styles/global';
 import defaultTheme from '../../assets/styles/themes/default';
@@ -19,7 +19,7 @@ function App() {
 
         <Container>
           <Header />
-          <Routes />
+          <Router />
         </Container>
 
       </ThemeProvider>
